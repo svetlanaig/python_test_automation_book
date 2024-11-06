@@ -53,24 +53,19 @@
 ################   task3    #####################
 
 
-
-###65
-a1 = int(input())
-a2 = int(input())
-a3 = int(input())
-a4 = int(input())
-a5 = int(input())
-x = 0
-if a1%2==0:
-    x+=1
-
-if a2%2==0:
-    x += 1
-if a3%2==0:
-    x += 1
-if a4%2==0:
-    x += 1
-if a5%2==0:
-    x += 1
-print(f'{x} valores pares')
-
+test_case1 = ["open browser", "navigate to page", "fill form"]
+test_case2 = ["open browser", "navigate to page", "click login"]
+test_case3 = ["open browser", "navigate to page", "click login"]
+scenarios = {
+    'my_test_case1': frozenset(test_case1),
+    'my_test_case2': frozenset(test_case2),
+    'my_test_case3': frozenset(test_case3)
+}
+def check_scenario_exists(name):
+    if name in scenarios:
+        print(f'{name} exists.')
+        print("Steps:", list(scenarios[name]))
+    else:
+        print(f'{name} is new.')
+name_input = str(input("Enter the name of the test case to check: "))
+check_scenario_exists(name_input)
