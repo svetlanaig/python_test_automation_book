@@ -32,9 +32,37 @@ print(content3)
 
 
 #### Regular Expressions
+# 1 - Define if a string contains the required characters.
+import re
+def check_string(x, y):
+    return all(re.search(a, y) for a in x)
+result1 = check_string('583', '7865serS3')
+result2 = check_string('973', '7865serS3')
+if result1:
+    print(f'Found: {result1}')
+else:
+    print("Not all characters were found")
+if result2:
+    print(result2)
+else:
+    print("Not all characters were found")
 
-"""
-Define if a string contains the required characters. E.g. if '7865serS3' includes '583' - True; '973' - False
-Count a number of Upper case letters in the string. E.g. '7865serS3' - 'Number of Capital letters: 1'
-Define if the string contains at least one Upper case letter followed by Lower case letters. E.g. '75serS3' - False; '75WseTrS3' - True;
-"""
+# 2 - Count a number of Upper case letters in the string. E.g. '7865serS3' - 'Number of Capital letters: 1'
+
+my_pattern = '[A-Z]'
+my_string = '7865serS3IO'
+import re
+result = re.findall(my_pattern, my_string)
+capital_letters=len(result)
+print(f'number of pattern in the string {capital_letters}')
+
+# 3 Define if the string contains at least one Upper case letter followed by Lower case letters. E.g. '75serS3' - False; '75WseTrS3' - True;
+
+my_pattern = '[A-Z][a-z]'
+my_string1 = '75serS3'
+my_string2 = '75WseTrS3'
+import re
+result1 = re.search(my_pattern, my_string1)
+result2 = re.search(my_pattern, my_string2)
+print(result1)
+print(result2)
