@@ -57,10 +57,17 @@ def cached_square(n, cache={}):
         cache[n] = result
         return result
 
-print(cached_square(4))
-print(cached_square(4))
-print(cached_square(5))
-print(cached_square(5))
+# Testing with a positive number
+print(cached_square(4))  
+print(cached_square(4)) 
+# Testing with zero
+print(cached_square(0))  
+print(cached_square(0))
+
+# Testing with negative numbers
+print(cached_square(-4))
+print(cached_square(-4))
+
 
 
 ################   task3    #####################
