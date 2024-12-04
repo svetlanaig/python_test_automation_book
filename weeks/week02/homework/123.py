@@ -1,69 +1,97 @@
 ################    task1    #####################
-#buble sorting Asc
-def bubble_sort_ascending(arr):
-    for i in range(len(arr)):
-        for j in range(0, len(arr)-i-1):
-            if arr[j] > arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
-    return arr
-msort = bubble_sort_ascending([1,3,2,4])
-print(msort)
+def bubble_sort_ascending(unsorted_list):
+    n = len(unsorted_list)
+    def _swap(unsorted_list, i, j):
+        unsorted_list[i], unsorted_list[j] = unsorted_list[j], unsorted_list[i]
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if unsorted_list[j] > unsorted_list[j + 1]:
+                _swap(unsorted_list, j, j + 1)
+    return unsorted_list
 
-# ##buble sorting Desc
-def bubble_sort_descending(arr):
-    for i in range(len(arr)):
-        for j in range(0, len(arr)-i-1):
-            if arr[j] < arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
-    return arr
-msort = bubble_sort_descending([1,3,2,4])
-print(msort)
+def bubble_sort_descending(unsorted_list):
+    n = len(unsorted_list)
+    def _swap(lst, i, j):
+        lst[i], lst[j] = lst[j], lst[i]
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if unsorted_list[j] < unsorted_list[j + 1]:
+                _swap(unsorted_list, j, j + 1)
+    return unsorted_list
 
-
-# ##buble sorting pause
-def bubble_sort_pause(arr):
-    for i in range(len(arr)):
+def bubble_sort_early_stop(unsorted_list):
+    n = len(unsorted_list)
+    def _swap(lst, i, j):
+        lst[i], lst[j] = lst[j], lst[i]
+    for i in range(n):
         is_sorted = True
-        for j in range(0, len(arr)-i-1):
-            if arr[j] > arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+        for j in range(0, n - i - 1):
+            if unsorted_list[j] > unsorted_list[j + 1]:
+                _swap(unsorted_list, j, j + 1)
                 is_sorted = False
         if is_sorted:
             break
-    return arr
-msort = bubble_sort_pause([1,3,2,4])
-print(msort)
+    return unsorted_list
 
-#
+def test_bubble_sort():
+    assert bubble_sort_ascending([]) == []
+    assert bubble_sort_ascending([5]) == [5]
+    assert bubble_sort_ascending([3,1,2]) == [1,2,3]
+    assert bubble_sort_descending([3,1,2]) == [3,2,1]
+    assert bubble_sort_early_stop([1,2,3]) == [1,2,3]
+
+test_bubble_sort()
+
+
 # ################   task2    #####################
-def square(n, cache={}):
+def square(n):
+    return n * n
+
+def cached_square(n, cache={}):
     if n in cache:
-        print("taken from cache:")
+        print("Taken from cache:")
         return cache[n]
     else:
         print("Calculating result:")
-        result = n * n
+        result = square(n)
         cache[n] = result
         return result
-print(square(4))
-print(square(4))
-print(square(5))
-print(square(5))
+
+print(cached_square(4))
+print(cached_square(4))
+print(cached_square(5))
+print(cached_square(5))
+
 
 ################   task3    #####################
-test_case1 = ["open browser", "navigate to page", "fill form"]
-test_case2 = ["open browser", "navigate to page", "click login"]
-test_case3 = ["open browser", "navigate to page", "click login"]
-scenarios = {
-    'my_test_case1': frozenset(test_case1),
-    'my_test_case2': frozenset(test_case2),
-    'my_test_case3': frozenset(test_case3)
-}
-def check_scenario_exists(name):
-    if name in scenarios:
-        print(f'{name} exists.')
-        print("Steps:", list(scenarios[name]))
+steps_1 = ["open browser", "navigate to page", "click login"]
+steps_2 = ["open browser", "navigate to page", "fill form"]
+steps_3 = ["open browser", "navigate to page", "click login"]
+
+scenario_1 = frozenset(steps_1)
+scenario_2 = frozenset(steps_2)
+scenario_3 = frozenset(steps_3)
+
+total_scenarios = {"Test Case 1": scenario_1, "Test Case 2": scenario_2, "Test Case 3": scenario_3, }
+new_steps = ["open browser", "navigate to page", "fill form"]
+
+def check_scenario(test_name, new_steps, existing_scenarios):
+    steps_set = frozenset(
+        new_steps)  # Convert new steps list to frozenset to ensure immutability and facilitate comparison
+
+    if test_name in existing_scenarios:
+        # If the test name is in the dictionary, check if the steps match
+        if existing_scenarios[test_name] == steps_set:
+            print(f"Scenario '{test_name}' already exists with the same steps.")
+        else:
+            print(f"Scenario '{test_name}' exists, but with different steps.")
     else:
-        print(f'{name} is new.')
-name_input = str(input("Enter the name of the test case to check: "))
-check_scenario_exists(name_input)
+        # If the test name is not in the dictionary, it does not exist
+        print(f"Scenario '{test_name}' does not exist.")
+
+def test_scenario_check():
+    check_scenario("Test Case 1", ["open browser", "navigate to page", "click login"], total_scenarios)
+    check_scenario("Test Case 2", ["open browser", "navigate to page", "fill form"], total_scenarios)
+    check_scenario("Test Case 3", ["open browser", "navigate to page", "fill form"], total_scenarios)
+    check_scenario("Test Case 4", ["open browser", "click on settings"], total_scenarios)
+test_scenario_check()
