@@ -1,0 +1,56 @@
+#Task 1: Write a TestCase class with methods for setup(), run(), and teardown().
+# Create objects of the TestCase class to represent individual test cases.
+
+class TestCase:
+    def __init__(self, test_case_name):
+        self.test_case_name = test_case_name
+    def setup(self):
+        print(f"Environment set up for test case {self.test_case_name}")
+    def run(self):
+        print(f"Run test case {self.test_case_name}")
+    def teardown(self):
+        print("Tearing down the test environment.")
+test_case1 = TestCase("Sample Test1")
+test_case2 = TestCase("Smoke Test2")
+print("Running Test Case 1:")
+test_case1.setup()
+test_case1.run()
+test_case1.teardown()
+print()  # Adding a blank line for better separation in output
+print("Running Test Case 2:")
+test_case2.setup()
+test_case2.run()
+test_case2.teardown()
+
+  
+# Task 2: Implement method overriding in a test automation context.
+
+class TestCase:
+    def __init__(self, test_case_name):
+        self.test_case_name = test_case_name
+    def run_case(self):
+        print(f"Run test case class: {self.test_case_name}")
+class TestStep(TestCase):
+    def __init__(self, test_case_name, test_step):
+        self.test_case_name = test_case_name
+        self.test_step = test_step
+    def run_case(self):
+        print(f"Run test case step {self.test_step}")
+test_step1 = TestStep("Test Case 1", "Step 1")
+test_step1.run_case()
+
+  
+#Task 3: Create a multiple inheritance example.
+
+class Province:
+    def info(self):
+        print("This is a province")
+class City:
+    def info(self):
+        print("This is a city")
+class Location(Province, City):
+    def info(self):
+        print("This is a location")
+loc = Location()
+loc.info()
+print(Location.__mro__)  # Prints the Method Resolution Order
